@@ -71,3 +71,16 @@ docker exec -it 07750f7e2fa8 <--- script for entering and running command?
 ### Questions
 can keep re-starting container rather than re-run (from scratch)?
 would this preserve the db state?
+
+### Knowledge
+keosd - wallet management, where cleos interfaces to keosd to perform wallet management
+`The program keosd, located in the eos/build/programs/keosd folder within the EOSIO/eos repository, can be used to store private keys that will be used to sign transactions sent to the block chain. keosd runs on your local machine and stores your private keys locally.`
+
+nodeos - wallet management, where cleos interfaces directly to nodeos to perform wallet management
+`The core EOSIO daemon that can be configured with plugins to run a node. Example uses are block production, dedicated API endpoints, and local development.`
+`docker-compose up` will run keosd where as the command in Step 2 only runs nodeos
+
+cleos
+`cleos is a command line tool that interfaces with the REST API exposed by nodeos`
+
+[Programs and Tools](https://github.com/EOSIO/eos/wiki/Programs-&-Tools#nodeos)
