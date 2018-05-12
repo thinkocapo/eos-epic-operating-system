@@ -20,12 +20,15 @@ Stop your container when done using it (e.g. when done coding for the day) so yo
  `--detach` to run it in background
  
 #### STEP 2 - cleos RPC Interface
-`cd ~/eos/Docker` to get access to build scripts....??????
+`docker exec -it <containerId> /bin/bash` to enter a docker container terminal, and access eos executables and filesystem.
 
-`docker exec -it <id>` to enter a docker container terminal, and access eos executables and filesystem.
-`/opt/eosio/bin/cleos -u http://localhost:8888 get info` from the docker container terminal
-or
- `docker exec -it <id>` + `/opt/eosio/bin/cleos -u http://localhost:8888 get info`  <--- try this ?
+ `docker exec -it <containerId> /bin/bash`
+ `/opt/eosio/bin/cleos -u http://localhost:8888/ get info` WORKS
+
+need something like:
+`docker exec -it <containerId> /bin/bash /opt/eosio/bin/cleos -u http://localhost:8888/ get info`
+
+
 ```
 {
   "server_version": "f17c28c8",
