@@ -61,16 +61,15 @@ if complains about volumes not mounted
 
 #### BUILDING
 mount volumes before step 4?
-docker exec -it 07750f7e2fa8 <--- script for entering and running command?
-8. /opt/eosio/bin/cleos -u http://localhost:8888 get info <--- script/command for this? alias
-9. Where to put .hpp cpp files in container? Can reference them from outside container? or must call from outside container, so have access to .cpp files?
-10. deploy HelloWorld
-
-
+`docker exec -it 07750f7e2fa8 /bin/bash` , logs in to the docker container, can see the /app directory specified from the Dockerfile
+`/opt/eosio/bin/cleos -u http://localhost:8888 get info` <--- script/command for this? alias
 
 ### Questions
 can keep re-starting container rather than re-run (from scratch)?
 would this preserve the db state?
+9. Where to put .hpp cpp files in container? Can reference them from outside container? or must call from outside container, so have access to .cpp files?
+10. deploy HelloWorld
+
 
 ### Knowledge
 keosd - wallet management, where cleos interfaces to keosd to perform wallet management
