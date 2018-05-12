@@ -14,7 +14,8 @@
 Stop your container when done using it (e.g. when done coding for the day) so you can docker start <containerId> next time
 
 #### Step 2 - Start Container (EOS)
-`docker start <containerId>`
+`docker ps -a | grep eos` find the container you stopped last time
+`docker start <containerId> --atach`
  
  `--detach` to run it in background
  
@@ -56,8 +57,8 @@ or
 
 if it says container already exists
 `docker ps -a` `| grep eos`
-`docker container` + `stop` or `kill` + `<id>`
-`docker container rm <id>`
+`docker container` + `stop` or `kill` + `<containerid>`
+`docker container rm <containerid>`
 
 if complains about volumes not mounted
 `docker volume create --name=keosd-data-volume` for each of the 3 volumes it wants
