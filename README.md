@@ -21,10 +21,10 @@ Stop your container when done using it (e.g. when done coding for the day) so yo
 #### STEP 2 - cleos RPC Interface
 `cd ~/eos/Docker` to get access to build scripts....??????
 
-`docker exec -it <id>` to enter a docker container terminal, and access eos executables and filesystem.
+`docker exec -it <id> /bin/bash` to enter a docker container terminal, and access eos executables and filesystem.
 `/opt/eosio/bin/cleos -u http://localhost:8888 get info` from the docker container terminal
 or
- `docker exec -it <id>` + `/opt/eosio/bin/cleos -u http://localhost:8888 get info`  <--- try this ?
+ `docker exec -it <id> /bin/bash` + `/opt/eosio/bin/cleos -u http://localhost:8888 get info`  <--- try this ?
 ```
 {
   "server_version": "f17c28c8",
