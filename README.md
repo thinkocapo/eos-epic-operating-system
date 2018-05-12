@@ -5,12 +5,19 @@
 `$ docker build . -t eosio/eos`
 `docker images` see it
 
-#### STEP 1
+#### STEP 1 - Build Image and Run Container (EOS) for first time
 *after image already built*
 
 1. Applications > Docker > start
 2. `docker run --name nodeos -p 8888:8888 -p 9876:9876 -t eosio/eos nodeosd.sh arg1 arg2` + `--plugin eosio::wallet_api_plugin`
 
+Stop your container when done using it (e.g. when done coding for the day) so you can docker start <containerId> next time
+
+#### Step 2 - Start Container (EOS)
+`docker start <containerId>`
+ 
+ `--detach` to run it in background
+ 
 #### STEP 2 - cleos RPC Interface
 `cd ~/eos/Docker` to get access to build scripts....??????
 
