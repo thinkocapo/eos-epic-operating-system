@@ -31,7 +31,8 @@ Stop your container when done using it (e.g. when done coding for the day) so yo
 `alias cleos='cleos --url http:/nodeosd:88888 --wallet -url http:nodeosd:8888` like in https://www.youtube.com/watch?v=5-gC5Wr7V1o&t=331s
 
 - RE-do docker-composeup from scratch
-- resarch genesis.json
+- resarch genesis.json, see  genesis-json = /opt/eosio/bin/data-dir/genesis.json see Docker/config.ini
+- https://github.com/EOSIO/eos/issues/1232
 
 
 ```
