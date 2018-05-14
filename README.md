@@ -22,11 +22,16 @@ Stop your container when done using it (e.g. when done coding for the day) so yo
 #### STEP 2 - cleos RPC Interface
 `docker exec -it <containerId> /bin/bash` to enter a docker container terminal, and access eos executables and filesystem.
 
- `docker exec -it <containerId> /bin/bash`
- `/opt/eosio/bin/cleos -u http://localhost:8888/ get info` WORKS
+**HERE - works**
+ - works as 1 command? or is being executed as 2 commands?
+ `docker exec -it <containerId> /bin/bash`  
+ `/opt/eosio/bin/cleos -u http://localhost:8888/ get info`
 
-need something like:
-`docker exec -it <containerId> /bin/bash /opt/eosio/bin/cleos -u http://localhost:8888/ get info`
+-or run container and then...
+`alias cleos='cleos --url http:/nodeosd:88888 --wallet -url http:nodeosd:8888` like in https://www.youtube.com/watch?v=5-gC5Wr7V1o&t=331s
+
+- RE-do docker-composeup from scratch
+- resarch genesis.json
 
 
 ```
