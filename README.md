@@ -69,6 +69,68 @@ Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](htt
 }
 ```
 
+#### Step 4 Create a Wallet, Save the Password
+```
+> cleos create wallet
+Creating wallet: default
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"5KjyFGeMTywdvMyxf4fWkfAZ7H6k54EiWvFaAprgSa8gYZmm8fK"
+```
+
+##### Step 5 Load the BIOS Contract
+"Now that we have a wallet with the key for the eosio account loaded, we can set a default system contract. For the purposes of development, the default eosio.bios contract can be used. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. In a public blockchain, this contract will manage the staking and unstaking of tokens to reserve bandwidth for CPU and network activity, and memory for contracts."
+
+`-p` flag
+"The last argument to this call was -p eosio. This tells cleos to sign this action with the active authority of the eosio account, i.e., to sign the action using the private key for the eosio account that we imported earlier."
+
+Try to upload the eos.bios
+```
+// wiki says
+> cleos set contract eosio build/contracts/eosio.bios -p eosio
+// we'll do
+> cleos set contract eosio ~/Projects/eos/build/contracts/eosio.bios -p eosio
+// ours doesn't have a ~/Projects/eos/build/contracts... directory, but did find:
+> cleos set contract eosio ~/Projects/eos/contracts/eosio.bios -p eosio
+Reading WAST/WASM from ~/Projects/eos/contracts/eosio.bios/eosio.bios.wast...
+1212040ms thread-0   main.cpp:1767                 main                 ] Failed with error: Assert Exception (10)
+!wast.empty(): no wast file found ~/Projects/eos/contracts/eosio.bios/eosio.bios.wast
+```
+So that ^^ didn't have it either. It turns out [we need to make eosio.bios.wast file](eosiocpp -o eosio.bios.wast eosio.bios.cpp.) before running this again.
+
+But we don't have eosiocpp ready as a command to generate the ABI. Where is the **eosiocpp** command executable located? Let's see if its in the same place that `cleos` was in, from our alias. It is.
+```
+> eosiocpp -o eosio.bios.wast eosio.bios.cpp.
+zsh: command not found: eosiocpp
+> docker exec -it <f043bb1b25b6>
+> root@f043bb1b25b6:/#
+> root@f043bb1b25b6:/# cd /opt/eosio/bin; ls
+// lots of eos binary executables, including eosiocpp
+cleos     eosio-abigen    eosio-s2wasm  keosd   nodeosd.sh
+data-dir  eosio-launcher  eosiocpp      nodeos
+```
+create another alias, but do not pass a --url flag because eosiocpp is not running on localhost (like nodeos is)
+```
+alias eosiocpp='docker exec -it f043bb1b25b6 /opt/eosio/bin/eosiocpp'
+```
+try to generate the bios contract...where does the eosio.bios.wast get put??
+eosiocpp -o /contracts/eosio.bios/eosio.bios.wast contracts/eosio.bios.cpp // write-to path and file are specified, and in the docker container. the .cpp must be pasesd in (e.g. a new smart contract you wrote on your local machine, as opposed to the contracts that come pre-loaded with the tutorials and are inside the ~/Projects/eos directory or your docker container's filesystem. maybe put my contracts into my eos-instructions directory)
+
+
+// 4:50p Ah, I see all the `.bios` `.wast` was in the docker container's `/contracts` not `/build/contracts`,so no need to build .wast and abi yet. So try a modified command:
+```
+// /contracts not /build/contracts
+> cleos set contract eosio /contracts/eosio.bios -p eosio // modified
+Reading WAST/WASM from /contracts/eosio.bios/eosio.bios.wast...
+Assembling WASM...
+Publishing contract...
+executed transaction: 557ed0a0e20ceaebf920c3ca27cb3ab9d7a39604ae8913183ef046e25329625a  3280 bytes  2200576 cycles
+#         eosio <= eosio::setcode               {"account":"eosio","vmtype":0,"vmversion":0,"code":"0061736d0100000001581060037f7e7f0060057f7e7e7e7e...
+#         eosio <= eosio::setabi                {"account":"eosio","abi":{"types":[],"structs":[{"name":"set_account_limits","base":"","fields":[{"n...
+```
+
+try to deploy the smart contract again...
+
 ### TROUBLESHOOTING
 `docker-compose up` errors about genesis.json, unless you run step 2 first. This tutorial does not use docker-compose up, which starts kleosd for you as well. This tutorial uses cleos to connect directly to nodeos for wallet-management.
 
@@ -109,3 +171,8 @@ Cleos can interface directly to nodeos to perform wallet management
 `cleos is a command line tool that interfaces with the REST API exposed by nodeos`
 
 [Programs and Tools](https://github.com/EOSIO/eos/wiki/Programs-&-Tools#nodeos)
+
+#### eosiocpp
+Using eosiocpp to generate the ABI specification file
+eosiocpp can generate the ABI specification file by inspecting the content of types declared in the contract source code.
+https://github.com/EOSIO/eos/wiki/Programs-&-Tools#eosiocpp
