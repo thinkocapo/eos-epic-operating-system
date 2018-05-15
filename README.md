@@ -14,21 +14,26 @@
 Stop your container when done using it (e.g. when done coding for the day) so you can docker start <containerId> next time
 
 #### Step 2 - Start Container (EOS)
-`docker ps -a | grep eos` find the container you stopped last time
-`docker start <containerId> --atach`
- 
- `--detach` to run it in background
- 
+find and run the container you stopped last time
+```
+docker ps -a | grep eos
+docker start <containerId> --atach
+```
+to run it in background `--detach`
+
+To enter a docker container terminal, and access eos executables and filesystem.
+`docker exec -it <containerId> /bin/bash`  
+
 #### STEP 2 - cleos RPC Interface
-`docker exec -it <containerId> /bin/bash` to enter a docker container terminal, and access eos executables and filesystem.
+Enter the docker container, then run command
+```
+ docker exec -it <containerId> /bin/bash
+ /opt/eosio/bin/cleos -u http://localhost:8888/ get info
+ ```
+**But how to run ^^ as 1 command?**
 
-**HERE - works**
- - works as 1 command? or is being executed as 2 commands?
- `docker exec -it <containerId> /bin/bash`  
- `/opt/eosio/bin/cleos -u http://localhost:8888/ get info`
-
--or run container and then...
-`alias cleos='cleos --url http:/nodeosd:88888 --wallet -url http:nodeosd:8888` like in https://www.youtube.com/watch?v=5-gC5Wr7V1o&t=331s
+**or run container and then run this?**
+`alias cleos='cleos --url http:/nodeosd:8888 --wallet -url http:nodeosd:8888` like in https://www.youtube.com/watch?v=5-gC5Wr7V1o&t=331s
 
 - RE-do docker-composeup from scratch
 - resarch genesis.json, see  genesis-json = /opt/eosio/bin/data-dir/genesis.json see Docker/config.ini
