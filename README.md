@@ -61,6 +61,8 @@ Stop your container when done using it (e.g. when done coding for the day) so ne
 `docker start <containerId>`
 
 #### Step 2 - Start Container (Docker EOS)
+Applications > Docker > dbl-click
+
 Find and run the container you stopped last time
 ```
 docker ps -a | grep eos
