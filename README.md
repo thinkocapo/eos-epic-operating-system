@@ -74,16 +74,6 @@ To enter a docker container bash shell (/bin/bash), where you can access the fil
 `docker exec -it <containerId> /bin/bash`  
 
 #### Step 3 - cleos RPC Interface to EOS 
-This command enters the docker container and runs a command. Or run it as two separate commands.
-```
-// 1
-docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/ get info
-
-// 1,2
-> docker exec -it <containerId> /bin/bash
-> root@f043bb1b25b6:/# /opt/eosio/bin/cleos --url http://localhost:8888/ get info
-```
-
 Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos':
 ```
 > alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
@@ -96,6 +86,20 @@ Create an alias for the 'cleos', so you only have to type 'get info' after 'cleo
   "head_block_time": "2018-05-15T17:43:25",
   "head_block_producer": "eosio"
 }
+```
+
+How does `docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/ get info` work?
+```
+// 1st - enters the docker container. /bin/bash is executable for running docker bash shell, 
+// you enter the shell and have access to system
+> docker exec -it <containerId> /bin/bash
+> root@f043bb1b25b6:/# 
+```
+Now run `/opt/eosio/bin/cleos --url http://localhost:8888/ get info`
+```
+// executable for 'cleos' program, and url specifies where nodeos is running, where can connect to
+// get info is the command to run
+> root@f043bb1b25b6:/# /opt/eosio/bin/cleos --url http://localhost:8888/ get info
 ```
 
 Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](https://eosio.github.io/eos/group__eosiorpc.html)  
@@ -112,9 +116,21 @@ Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](htt
 ```
 
 #### Step 4 Create a Wallet, Save the Password
-note - this is not your accounts. Wallet come first.
+first check if have a wallet: unlock wallet:
+```
+> cleos wallet unlock
+password:
+password: Unlocked: default // success
+```
+If so, Check if there are any accounts for the first Key you generated (during setup), using the publicaddress you saved during setup:
+```
+> cleos get accounts <publicaddress>
+```
+
+If you don't have a wallet, create one. Note this is not your Account(s) - THink of Wallet as the application that allows access to accounts. (access to EOS)
 ```
 > cleos create wallet
+
 Creating wallet: default
 Save password to use in the future to unlock this wallet.
 Without password imported keys will not be retrievable.
@@ -122,43 +138,14 @@ Without password imported keys will not be retrievable.
 ```
 
 ##### Step 5 Load the BIOS Contract (i.e. deploy this smart contract)
+**need this (contract) in order to manage Accounts**
+Re-run - is BIOS already loaded? how to check... what file/where
+
+
 "Now that we have a wallet with the key for the eosio account loaded, we can set a default system contract. For the purposes of development, the default eosio.bios contract can be used. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. In a public blockchain, this contract will manage the staking and unstaking of tokens to reserve bandwidth for CPU and network activity, and memory for contracts."
 
 `-p` flag
 "The last argument to this call was -p eosio. This tells cleos to sign this action with the active authority of the eosio account, i.e., to sign the action using the private key for the eosio account that we imported earlier."
-
-Try to upload the eos.bios
-```
-// wiki says
-> cleos set contract eosio build/contracts/eosio.bios -p eosio
-// we'll do
-> cleos set contract eosio ~/Projects/eos/build/contracts/eosio.bios -p eosio
-// ours doesn't have a ~/Projects/eos/build/contracts... directory, but did find:
-> cleos set contract eosio ~/Projects/eos/contracts/eosio.bios -p eosio
-Reading WAST/WASM from ~/Projects/eos/contracts/eosio.bios/eosio.bios.wast...
-1212040ms thread-0   main.cpp:1767                 main                 ] Failed with error: Assert Exception (10)
-!wast.empty(): no wast file found ~/Projects/eos/contracts/eosio.bios/eosio.bios.wast
-```
-So that ^^ didn't have it either. It turns out [we need to make eosio.bios.wast file](eosiocpp -o eosio.bios.wast eosio.bios.cpp.) before running this again.
-
-But we don't have eosiocpp ready as a command to generate the ABI. Where is the **eosiocpp** command executable located? Let's see if its in the same place that `cleos` was in, from our alias. It is.
-```
-> eosiocpp -o eosio.bios.wast eosio.bios.cpp.
-zsh: command not found: eosiocpp
-> docker exec -it <f043bb1b25b6>
-> root@f043bb1b25b6:/#
-> root@f043bb1b25b6:/# cd /opt/eosio/bin; ls
-// lots of eos binary executables, including eosiocpp
-cleos     eosio-abigen    eosio-s2wasm  keosd   nodeosd.sh
-data-dir  eosio-launcher  eosiocpp      nodeos
-```
-create another alias, but do not pass a --url flag because eosiocpp is not running on localhost (like nodeos is)
-```
-alias eosiocpp='docker exec -it f043bb1b25b6 /opt/eosio/bin/eosiocpp'
-```
-try to generate the bios contract...where does the eosio.bios.wast get put??
-eosiocpp -o /contracts/eosio.bios/eosio.bios.wast contracts/eosio.bios.cpp // write-to path and file are specified, and in the docker container. the .cpp must be pasesd in (e.g. a new smart contract you wrote on your local machine, as opposed to the contracts that come pre-loaded with the tutorials and are inside the ~/Projects/eos directory or your docker container's filesystem. maybe put my contracts into my eos-instructions directory)
-
 
 // 4:50p Ah, I see all the `.bios` `.wast` was in the docker container's `/contracts` not `/build/contracts`,so no need to build .wast and abi yet. So try a modified command:
 ```
@@ -180,6 +167,7 @@ note-Panes - running commands and watching transaction log, docker shell & eos-i
 note-some tutorials that run `docker-comand up` but then dont' use kleos. overall, free-for-fall, on your own, no blockchain node tutorial will work 100%
 
 #### Step 6 - Create Keys, Create Accounts
+(skip if you did this last time)
 Keys...
 ```
 > cleos create key
