@@ -25,3 +25,12 @@ make sure its there:
   "account_name": "eosio",
   "permissions": [{
 ```
+
+
+Create a token using eosio.token contract, 'create' Action.
+**Where is this action 'Create' defined? Or is create only making a new instance of?**
+ ```
+ ~ cleos push action eosio.token create '[ "eosio", "1000000000.0000 EOS", 0, 0, 0]' -p eosio.token
+executed transaction: 7320afc446a2a5c1e5a6444602a47f4d870ce5f2eedf66b379d0fbb6be196a13  248 bytes  104448 cycles
+#   eosio.token <= eosio.token::create          {"issuer":"eosio","maximum_supply":"1000000000.0000 EOS","can_freeze":0,"can_recall":0,"can_whitelis...
+```
