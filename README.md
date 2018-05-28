@@ -215,3 +215,11 @@ NOTE: The create account subcommand requires two keys, one for the OwnerKey (whi
 
 Because we are using the eosio::history_api_plugin we can query all accounts that are controlled by our key:
 ```
+
+tmux send-keys -t 0 'cleos get info' C-m
+
+tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:│3208741ms thread-0   net_plugin.cpp:2933           plugin_shutdown      ] exit shutdown
+8888/ get info' C-m
+
+tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:│3208741ms thread-0   net_plugin.cpp:2933           plugin_shutdown      ] exit shutdown
+8888/ get info' C-m && tmux capture-pan -t 0 && tmux show-buffer
