@@ -27,7 +27,7 @@ Sometimes even i% is reserved for investors to purchase like an ICO
 ### Approaches To Try
 1. https://eosio.stackexchange.com/questions/732/how-to-airdrop-an-eosio-token
 2. https://steemit.com/eos/@leordev/eos-ram-and-bandwith-analysis-airdropping-steps-on-junglenet
-3. https://github.com/EOSEssentials/EOSDrops
+3. https://github.com/EOSEssentials/EOSDrops author of above article is commenting on this one /EOSDrops
 4. https://github.com/eosdac/DACtools/tree/master/drop%20tool
 
 
