@@ -16,8 +16,17 @@ T. Run a local Prod Node
 2. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet
 3. Arrowhead, Trinity test nets
 
+#### View Balances of a EOS Address on Main Net
+?
+#### View Token Balances for a EOS Address on Main Net
+?
+
+#### Official EOS Airdrop Docs
+?
+
 ### Airdrop
 1. How to issue a Token on EOS
 2. How to Airdrop it
 3. Onessus requirements
 4. Quantity/Balance of EOS staked/fee'd to deploy this. Cost. - paying for RAM
+
