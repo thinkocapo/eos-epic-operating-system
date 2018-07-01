@@ -3,3 +3,5 @@ https://steemit.com/eos/@eosio/introducing-eos-io-application-stack
 https://eosio.stackexchange.com/
 
 https://github.com/EOSIO/eos/wiki
+
+https://github.com/EOSEssentials built by author(s) of how-to-airdrop articles in /docs/airdrop.md
