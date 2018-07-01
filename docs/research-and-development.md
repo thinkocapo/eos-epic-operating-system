@@ -5,7 +5,8 @@
 
 #### EOS Node for Airdropping
 1. ~~Self-hosted in AWS, runs 24/7~~
-2. ~~SaaS (e.g. Infura for Ethereum), you connect/deploy to a node that someone else runs~~
+2. SaaS (e.g. Infura for Ethereum), you connect/deploy to a node that someone else runs
+  .https://hackernoon.com/getting-started-on-eos-mainnet-in-10-minutes-bf61dd9ec787
 3. Local Prod Instance that connects to main net. Run it, deploy, stop it. YES
 
 Q. How to run Local Prod Node?  
