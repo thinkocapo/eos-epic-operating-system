@@ -20,4 +20,4 @@ T. Run a local Prod Node
 1. How to issue a Token on EOS
 2. How to Airdrop it
 3. Onessus requirements
-4. Quantity/Balance of EOS staked/fee'd to deploy this. Cost.
+4. Quantity/Balance of EOS staked/fee'd to deploy this. Cost. - paying for RAM
