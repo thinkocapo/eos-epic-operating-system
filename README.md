@@ -1,7 +1,9 @@
-## How to EOS Node
-### Initial Setup - One time
+# How to run a EOS Node 
+[EOS Terms & Definitions for this Tutorial](/docs/eos-tools-explained.md)  
+[Troubleshooting](/docs/troubleshooting.md)
+## Initial Setup - One time
 #### Step 0: Install tmux
-Do this step if you want to use the custom tmux dev env I've created, which is launched by the eos.sh shell script.
+Do this step if you want to use `eos.sh`, which launches a custom tmux dev environment (saves time in the long run). I provide alternative commands if you want to skip this.
 [tmux](https://github.com/tmux/tmux)
 #### Step 1: Build Docker Image for EOS
 ```
@@ -27,7 +29,7 @@ Stop your container when done using it (e.g. when done coding for the day) so ne
 TODO:
 configure your `~/.zshrc` file and `./eos.sh`
 
-### Start EOS Node in Docker Container and run a Bash Shell on it - run each time
+## Start EOS Node in Docker Container and run a Bash Shell on it - run each time
 #### Step 1: Start Container (Docker EOS) and enter it to interact with EOS
 1. MacOS > Applications > Docker > dbl-click, this starts Docker on your machine
 2. `eos.sh` will start everything for you in tmux:
@@ -75,7 +77,7 @@ docker ps | grep eos
 docker stop <containerId>
 ```
 
-### Interact with EOS via 'cleos'
+## Interact with EOS via 'cleos'
 #### Step 1: Cleos RPC Interface to EOS 
 1. If you got `eos.sh` to work, then this will work from your terminal:
 ```
@@ -107,148 +109,66 @@ cleos get info
 
 [You can also use 'curl' to access the EOS](/how-to/curl.md)
 
-#### Step 2: Create a Wallet, Save the Password
-first check if have a wallet: unlock wallet:
+#### Step 2: Verify Wallet, Key Pair, Contract Accounts
+- Think of Wallet as the app that allows access to accounts.
+- If you don't have a wallet, create one. Note this is not your Account(s). 
+- I'm not reproducing the entire Create Wallet, Create Keys, Create Accounts but the tutorial is [eos/wiki/Tutorial-Getting-Started-With-Contracts](https://github.com/EOSIO/eos/wiki/Tutorial-Getting-Started-With-Contracts)  
+- I recommend you create a gitignor'd .env file to store your wallet password, and account passwords too, so its always available in project.
+Then...  
 ```
 cleos wallet unlock
 password:
 password: Unlocked: default // success
 ```
-If so, Check if there are any accounts for the first Key you generated (during setup), using the publicaddress you saved during setup:
+Accounts for the first Key you generated (during setup), using the publicaddress you saved during setup:
 ```
 cleos get accounts <publicaddress>
+{
+  "account_names": [
+    "eosio.msig",
+    "eosio.token",
+    "exchange",
+    "tester",
+    "user"
+  ]
+}
 ```
 
-If you don't have a wallet, create one. Note this is not your Account(s) - THink of Wallet as the application that allows access to accounts. (access to EOS)
-```
-cleos create wallet
-
-Creating wallet: default
-Save password to use in the future to unlock this wallet.
-Without password imported keys will not be retrievable.
-"5KjyFGeMTywdvMyxf4fWkfAZ7H6k54EiWvFaAprgSa8gYZmm8fK"
-```
-
-##### Step 5: Load the BIOS Contract (i.e. deploy this smart contract)
-**need this (contract) in order to manage Accounts**
-Re-run - is BIOS already loaded? how to check... what file/where
-
-
+#### Step 3: Load a Contract (i.e. deploy a smart contract)
+**Let's do the BIOS contract, which you need in order to manage Accounts**  
+**Why?**  
 "Now that we have a wallet with the key for the eosio account loaded, we can set a default system contract. For the purposes of development, the default eosio.bios contract can be used. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. In a public blockchain, this contract will manage the staking and unstaking of tokens to reserve bandwidth for CPU and network activity, and memory for contracts."
+Should only have to do this one. It should be there next time.
 
-`-p` flag
+`-p eosio` flag
 "The last argument to this call was -p eosio. This tells cleos to sign this action with the active authority of the eosio account, i.e., to sign the action using the private key for the eosio account that we imported earlier."
 
-// 4:50p Ah, I see all the `.bios` `.wast` was in the docker container's `/contracts` not `/build/contracts`,so no need to build .wast and abi yet. So try a modified command:
+I noticed all the `.bios` `.wast` was in the docker container's `/contracts` not `/build/contracts`, so no need to build .wast and abi yet. So I use this modified command (corresponding activity in docker shell):
 ```
-// /contracts not /build/contracts
-> cleos set contract eosio /contracts/eosio.bios -p eosio // modified
+$ cleos set contract eosio /contracts/eosio.bios -p eosio
 Reading WAST/WASM from /contracts/eosio.bios/eosio.bios.wast...
 Assembling WASM...
 Publishing contract...
 executed transaction: 557ed0a0e20ceaebf920c3ca27cb3ab9d7a39604ae8913183ef046e25329625a  3280 bytes  2200576 cycles
-#         eosio <= eosio::setcode               {"account":"eosio","vmtype":0,"vmversion":0,"code":"0061736d0100000001581060037f7e7f0060057f7e7e7e7e...
-#         eosio <= eosio::setabi                {"account":"eosio","abi":{"types":[],"structs":[{"name":"set_account_limits","base":"","fields":[{"n...
-
-// you'll see activity in your running --attach docker, if you have split-pane so set that up first...
-```
-The last argument to this call was -p eosio. This tells cleos to sign this action with the active authority of the eosio account, i.e., to sign the action using the private key for the eosio account that we imported earlier.
-
-note-Create a .env file to store your wallet password, and account passwords too
-note-Panes - running commands and watching transaction log, docker shell & eos-instructions , (eos shouldn't need this one, should be looking in docker shell?) picture of it?
-note-some tutorials that run `docker-comand up` but then dont' use kleos. overall, free-for-fall, on your own, no blockchain node tutorial will work 100%
-
-#### Step 6: Create Keys, Create Accounts
-(skip if you did this last time)
-Keys...
-```
-> cleos create key
-Private key: 5JtMe4tg4A7F6mqs2YAwumb4Tn1gnNf6xgcjQZr25a6nywUmwHc
-Public key: EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
-```
-store this in .env
-ACCOUNT_1_PUBLIC_ADDRESS=EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
-ACCOUNT_1_PRIVATE_KEY=5JtMe4tg4A7F6mqs2YAwumb4Tn1gnNf6xgcjQZr25a6nywUmwHc
-
-Then we import this key into our wallet:
-```
-$ cleos wallet import 5JtMe4tg4A7F6mqs2YAwumb4Tn1gnNf6xgcjQZr25a6nywUmwHc
-imported private key for: EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
-```
-Accounts...
-```
-> cleos create account eosio user EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
-executed transaction: 3bea762a357c4621f731a1d0e50c3b07a0c933a12f6854cc66819772884fed23  352 bytes  102400 cycles
-#         eosio <= eosio::newaccount            {"creator":"eosio","name":"user","owner":{"threshold":1,"keys":[{"key":"EOS6iPzpZ5uoZazFEmmnhT9zeXKo...
-
-> cleos create account eosio tester EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
-executed transaction: 17b237406ca1111e9f538d41e9bce6593f2b9fb91f12b18eebb66a224e5070c9  352 bytes  102400 cycles
-#         eosio <= eosio::newaccount            {"creator":"eosio","name":"tester","owner":{"threshold":1,"keys":[{"key":"EOS6iPzpZ5uoZazFEmmnhT9zeX...
-
-
-// and example of docker-log....
-2434089ms thread-0   abi_serializer.hpp:349        extract              ] vo: {"signatures":["SIG_K1_KVCLnVPMkarhyPcQ8shX87U3T7MCcnWSNVBrYiHvGd2BK8SVCXrUBnMTvNKXvSuaTpGStrAvUfMSpx9Zxd7kqxkVN1rDjw"],"compression":"none","packed_context_free_data":"","packed_trx":"1070fb5a0000785c9efd0d5f00000000010000000000ea305500409e9a2264b89a010000000000ea305500000000a8ed32327c0000000000ea305500000000007015d601000000010002f079ee21e40f2e1729d39ddc12c1e6f10ccd31b16fe8d0f36587d57ce352138401000001000000010002f079ee21e40f2e1729d39ddc12c1e6f10ccd31b16fe8d0f36587d57ce35213840100000100000000010000000000ea305500000000a8ed32320100"}
+# eosio <= eosio::setcode {"account":"eosio","vmtype":0,"vmversion":0,"code":"0061736d0100000001581060037f7e7f0060057f7e7e7e7e...
+# eosio <= eosio::setabi  {"account":"eosio","abi":{"types":[],"structs":[{"name":"set_account_limits","base":"","fields":[{"n...
 ```
 
-make sure its all there:
+#### Step 4: Make sure its all there (i.e. it deployed):
 ```
 cleos get accounts EOS6iPzpZ5uoZazFEmmnhT9zeXKoNfMqpe2EStM4rDY8yTWuWzzoU
 {
   "account_names": [
     "tester",
     "user"
+    <!-- "eosio.msig", -->
+    <!-- "eosio.token", -->
+    <!-- "exchange", -->
   ]
 }
 ```
-(so ctrl+c to stop the docker log, didn't stop the container. bceause I re-attached it and cleos get accounts still found both accounts)
 
-```
-NOTE: The create account subcommand requires two keys, one for the OwnerKey (which in a production environment should be kept highly secure) and one for the ActiveKey. In this tutorial example, the same key is used for both.
+Note - picture of dev env setup in shell/tmux
+Note-some tutorials that run `docker-comand up` but then dont' use kleos
+Note - Because we are using the eosio::history_api_plugin we can query all accounts that are controlled by our key:
 
-Because we are using the eosio::history_api_plugin we can query all accounts that are controlled by our key:
-```
-
-tmux send-keys -t 0 'cleos get info' C-m
-
-tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:│3208741ms thread-0   net_plugin.cpp:2933           plugin_shutdown      ] exit shutdown
-8888/ get info' C-m
-
-tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:│3208741ms thread-0   net_plugin.cpp:2933           plugin_shutdown      ] exit shutdown
-8888/ get info' C-m && tmux capture-pan -t 0 && tmux show-buffer
-
-## EOS Terms and Definitions
-#### keosd
-`The program keosd, located in the eos/build/programs/keosd folder within the EOSIO/eos repository, can be used to store private keys that will be used to sign transactions sent to the block chain. keosd runs on your local machine and stores your private keys locally.` Cleos can interface to keosd to perform wallet management
-
-#### nodeos
-`The core EOSIO daemon that can be configured with plugins to run a node. Example uses are block production, dedicated API endpoints, and local development.`
-`docker-compose up` will run keosd where as the command in Step 2 only runs nodeos
-Cleos can interface directly to nodeos to perform wallet management
-
-#### cleos
-`cleos is a command line tool that interfaces with the REST API exposed by nodeos`
-
-[Programs and Tools](https://github.com/EOSIO/eos/wiki/Programs-&-Tools#nodeos)
-
-#### eosiocpp
-Using eosiocpp to generate the ABI specification file
-eosiocpp can generate the ABI specification file by inspecting the content of types declared in the contract source code.
-https://github.com/EOSIO/eos/wiki/Programs-&-Tools#eosiocpp
-
-## TROUBLESHOOTING
-`docker-compose up` errors about genesis.json, unless you run step 2 first. This tutorial does not use docker-compose up, which starts kleosd for you as well. This tutorial uses cleos to connect directly to nodeos for wallet-management.
-
-A path of /opt/eos/bin/cleos won't work, even though EOS Wiki says to use it. You need /opt/eosio/bin/cleos. Several eos github issues and pr's have been updating all the places, but they've still missed some.
-
-If it says container already exists, its becase you didn't stop the container when you finished last time
-`docker ps -a` `| grep eos`  
-So attach to it to see it. Stop it if you're not using it. If stopped, you can remove it too.  
-`docker container rm <containerid>`
-
-If complains about volumes not mounted
-`docker volume create --name=keosd-data-volume` for each of the 3 volumes it wants
-
-```
-/opt/eosio/bin/cleos -H nodeos  // fails, warning abotu -u replacing -H
-/opt/eosio/bin/cleos -u http://localhost:8888  // wants an argument
-```
