@@ -12,9 +12,10 @@ Q. How to run Local Prod Node?
 T. Run a local Prod Node
 
 #### Dev to Prod Process
-1. Run on local private net
-2. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet
-3. Arrowhead, Trinity test nets
+1. Get local node up and running, Wallet,Keys,Accounts, System BIOS Contract, deployed successfully, persisted
+2. Run on local private net
+3. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet
+4. Arrowhead, Trinity test nets
 
 #### View Balances of a EOS Address on Main Net
 ?
