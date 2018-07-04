@@ -1,7 +1,3 @@
 containerid=$(docker ps -a | grep eos | awk '{print $1}')
-
-#echo 'Run the following command to start a bash shell to the EOS docker container:'
-echo 'docker exec -it '$containerid
-
 docker exec -it $containerid /bin/bash
-
+echo 're-run ./docker-exec.sh because container wasnt running yet...'
