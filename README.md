@@ -1,45 +1,5 @@
-## How to run EOS
-
-## TROUBLESHOOTING
-`docker-compose up` errors about genesis.json, unless you run step 2 first. This tutorial does not use docker-compose up, which starts kleosd for you as well. This tutorial uses cleos to connect directly to nodeos for wallet-management.
-
-A path of /opt/eos/bin/cleos won't work, even though EOS Wiki says to use it. You need /opt/eosio/bin/cleos. Several eos github issues and pr's have been updating all the places, but they've still missed some.
-
-If it says container already exists, its becase you didn't stop the container when you finished last time
-`docker ps -a` `| grep eos`  
-So attach to it to see it. Stop it if you're not using it. If stopped, you can remove it too.  
-`docker container rm <containerid>`
-
-If complains about volumes not mounted
-`docker volume create --name=keosd-data-volume` for each of the 3 volumes it wants
-
-```
-/opt/eosio/bin/cleos -H nodeos  // fails, warning abotu -u replacing -H
-/opt/eosio/bin/cleos -u http://localhost:8888  // wants an argument
-```
-
-### EOS Terms and Definitions
-#### keosd
-`The program keosd, located in the eos/build/programs/keosd folder within the EOSIO/eos repository, can be used to store private keys that will be used to sign transactions sent to the block chain. keosd runs on your local machine and stores your private keys locally.` Cleos can interface to keosd to perform wallet management
-
-#### nodeos
-`The core EOSIO daemon that can be configured with plugins to run a node. Example uses are block production, dedicated API endpoints, and local development.`
-`docker-compose up` will run keosd where as the command in Step 2 only runs nodeos
-Cleos can interface directly to nodeos to perform wallet management
-
-#### cleos
-`cleos is a command line tool that interfaces with the REST API exposed by nodeos`
-
-[Programs and Tools](https://github.com/EOSIO/eos/wiki/Programs-&-Tools#nodeos)
-
-#### eosiocpp
-Using eosiocpp to generate the ABI specification file
-eosiocpp can generate the ABI specification file by inspecting the content of types declared in the contract source code.
-https://github.com/EOSIO/eos/wiki/Programs-&-Tools#eosiocpp
-
-
-### Tutorial Begin
-#### STEP 0 - Build Docker Image for EOS
+## How to run EOS Node
+#### SETUP - Build Docker Image for EOS
 ```
 > git clone https://github.com/EOSIO/eos.git --recursive
 > cd eos/Docker
@@ -50,7 +10,7 @@ eosio/eos                latest              8b745f9b7c8d        5 days ago     
 ```
 or can pull the image from the Docker Registry?
 
-#### Step 2 - Run Docker Image as Docker Container for first time
+#### Step 1 - Run Docker Image as Docker Container for first time
 Applications > Docker > dbl-click
 
 `docker run --name nodeos -p 8888:8888 -p 9876:9876 -t eosio/eos nodeosd.sh arg1 arg2`
@@ -223,3 +183,40 @@ tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url htt
 
 tmux send-keys -t 0 'docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:│3208741ms thread-0   net_plugin.cpp:2933           plugin_shutdown      ] exit shutdown
 8888/ get info' C-m && tmux capture-pan -t 0 && tmux show-buffer
+
+## EOS Terms and Definitions
+#### keosd
+`The program keosd, located in the eos/build/programs/keosd folder within the EOSIO/eos repository, can be used to store private keys that will be used to sign transactions sent to the block chain. keosd runs on your local machine and stores your private keys locally.` Cleos can interface to keosd to perform wallet management
+
+#### nodeos
+`The core EOSIO daemon that can be configured with plugins to run a node. Example uses are block production, dedicated API endpoints, and local development.`
+`docker-compose up` will run keosd where as the command in Step 2 only runs nodeos
+Cleos can interface directly to nodeos to perform wallet management
+
+#### cleos
+`cleos is a command line tool that interfaces with the REST API exposed by nodeos`
+
+[Programs and Tools](https://github.com/EOSIO/eos/wiki/Programs-&-Tools#nodeos)
+
+#### eosiocpp
+Using eosiocpp to generate the ABI specification file
+eosiocpp can generate the ABI specification file by inspecting the content of types declared in the contract source code.
+https://github.com/EOSIO/eos/wiki/Programs-&-Tools#eosiocpp
+
+## TROUBLESHOOTING
+`docker-compose up` errors about genesis.json, unless you run step 2 first. This tutorial does not use docker-compose up, which starts kleosd for you as well. This tutorial uses cleos to connect directly to nodeos for wallet-management.
+
+A path of /opt/eos/bin/cleos won't work, even though EOS Wiki says to use it. You need /opt/eosio/bin/cleos. Several eos github issues and pr's have been updating all the places, but they've still missed some.
+
+If it says container already exists, its becase you didn't stop the container when you finished last time
+`docker ps -a` `| grep eos`  
+So attach to it to see it. Stop it if you're not using it. If stopped, you can remove it too.  
+`docker container rm <containerid>`
+
+If complains about volumes not mounted
+`docker volume create --name=keosd-data-volume` for each of the 3 volumes it wants
+
+```
+/opt/eosio/bin/cleos -H nodeos  // fails, warning abotu -u replacing -H
+/opt/eosio/bin/cleos -u http://localhost:8888  // wants an argument
+```
