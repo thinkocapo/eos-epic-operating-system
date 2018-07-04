@@ -1,5 +1,6 @@
-## How to run EOS Node
-#### SETUP - Build Docker Image for EOS
+## How to EOS Node
+### Initial Setup - One time
+#### Step 1: Build Docker Image for EOS
 ```
 > git clone https://github.com/EOSIO/eos.git --recursive
 > cd eos/Docker
@@ -10,7 +11,7 @@ eosio/eos                latest              8b745f9b7c8d        5 days ago     
 ```
 or can pull the image from the Docker Registry?
 
-#### Step 1 - Run Docker Image as Docker Container for first time
+#### Step 2:  - Run Docker Image as Docker Container for first time
 Applications > Docker > dbl-click
 
 `docker run --name nodeos -p 8888:8888 -p 9876:9876 -t eosio/eos nodeosd.sh arg1 arg2`
@@ -20,7 +21,8 @@ for workign with wallet, might need `--plugin eosio::wallet_api_plugin`
 Stop your container when done using it (e.g. when done coding for the day) so next time you can do:
 `docker start <containerId>`
 
-#### Step 2 - Start Container (Docker EOS)
+### Start EOS Node - run each time
+#### Step 1: Start Container (Docker EOS)
 Applications > Docker > dbl-click
 
 Find and run the container you stopped last time
@@ -33,7 +35,7 @@ or use `--detach` to run it in the background.
 To enter a docker container bash shell (/bin/bash), where you can access the filesystem and run commands:
 `docker exec -it <containerId> /bin/bash`  
 
-#### Step 3 - cleos RPC Interface to EOS 
+#### Step 3: cleos RPC Interface to EOS 
 Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos':
 ```
 > alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
@@ -75,7 +77,7 @@ Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](htt
 }
 ```
 
-#### Step 4 Create a Wallet, Save the Password
+#### Step 4: Create a Wallet, Save the Password
 first check if have a wallet: unlock wallet:
 ```
 > cleos wallet unlock
@@ -97,7 +99,7 @@ Without password imported keys will not be retrievable.
 "5KjyFGeMTywdvMyxf4fWkfAZ7H6k54EiWvFaAprgSa8gYZmm8fK"
 ```
 
-##### Step 5 Load the BIOS Contract (i.e. deploy this smart contract)
+##### Step 5: Load the BIOS Contract (i.e. deploy this smart contract)
 **need this (contract) in order to manage Accounts**
 Re-run - is BIOS already loaded? how to check... what file/where
 
@@ -126,7 +128,7 @@ note-Create a .env file to store your wallet password, and account passwords too
 note-Panes - running commands and watching transaction log, docker shell & eos-instructions , (eos shouldn't need this one, should be looking in docker shell?) picture of it?
 note-some tutorials that run `docker-comand up` but then dont' use kleos. overall, free-for-fall, on your own, no blockchain node tutorial will work 100%
 
-#### Step 6 - Create Keys, Create Accounts
+#### Step 6: Create Keys, Create Accounts
 (skip if you did this last time)
 Keys...
 ```
