@@ -1,1 +1,0 @@
-tmux new-session -t eos \; split-window -v -c ~/Projects/eos-instructions \; send-keys -t 0 '~/eos-start-docker.sh' C-m \; new-window -c ~/Projects/eos-instructions -d
