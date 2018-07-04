@@ -30,13 +30,13 @@ configure your `~/.zshrc` file and `./eos.sh`
 ### Start EOS Node - run each time
 #### Step 1: Start Container (Docker EOS)
 1. MacOS > Applications > Docker > dbl-click, this starts Docker on your machine
-2. `eos` or `eos.sh` will start everything for you.
+2. `eos.sh` will start everything for you in tmux.
 3. If don't do step 2, then find and run the container you stopped last time
 ```
 docker ps -a | grep eos
 docker start <containerId> --attach
+// --detach to run in the background.
 ```
-or use `--detach` to run it in the background.
 4. Enter a docker container bash shell (/bin/bash), where you can access the filesystem and run commands:
 `docker exec -it <containerId> /bin/bash`  
 5. When done developing for the day, don't forget to:
