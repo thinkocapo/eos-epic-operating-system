@@ -27,8 +27,8 @@ Stop your container when done using it (e.g. when done coding for the day) so ne
 TODO:
 configure your `~/.zshrc` file and `./eos.sh`
 
-### Start EOS Node - run each time
-#### Step 1: Start Container (Docker EOS)
+### Start EOS Node in Docker Container and run a Bash Shell on it - run each time
+#### Step 1: Start Container (Docker EOS) and enter it to interact with EOS
 1. MacOS > Applications > Docker > dbl-click, this starts Docker on your machine
 2. `eos.sh` will start everything for you in tmux.
 3. If don't do step 2, then find and run the container you stopped last time
@@ -37,17 +37,35 @@ docker ps -a | grep eos
 docker start <containerId> --attach
 // --detach to run in the background.
 ```
-4. Enter a docker container bash shell (/bin/bash), where you can access the filesystem and run commands:
-`docker exec -it <containerId> /bin/bash`  
-5. When done developing for the day, don't forget to:
+
+4. Start a bash shell to the container, so you can interact with EOS in there.
 ```
-docker ps
+// 'docker exec -it <containerId>' enters the docker container and run /bin/bash which starts a bash shell, giving you access to the docker container and EOS
+// '/opt/eosio/bin/cleos' is executable for 'cleos' program, and --url specifies where where nodeos is running so it can connect to it (i.e. interface to EOS)
+// get info is the command to run, gives us info about EOS
+docker exec -it <containerId> /bin/bash 
+> root@f043bb1b25b6:/# 
+> root@f043bb1b25b6:/# /opt/eosio/bin/cleos --url http://localhost:8888/ get info
+{
+  "server_version": "f17c28c8",
+  "head_block_num": 4816,
+  "last_irreversible_block_num": 4815,
+  "head_block_id": "000012d00ed845ff5e504cbcdf1063b2d99ad4586fe5aa9d2d35547dd6f002be",
+  "head_block_time": "2018-05-15T17:43:25",
+  "head_block_producer": "eosio"
+}
+> root@f043bb1b25b6:/# exit
+```  
+5. Now that you're in the Docker container, you can run the commands in Step 3, like `cleos get info`
+6. Stop the container when you're done for the day, or next you try to 'docker start' it will tell you 'already running':
+```
+docker ps | grep eos
 docker stop <containerId>
 ```
 
-
-#### Step 3: cleos RPC Interface to EOS 
-Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos':
+### Interact with EOS via 'cleos'
+#### Step 1: Cleos RPC Interface to EOS 
+Optional - Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos'. If you don't use alias, then do `docker exec -it <containerId> /bin/bash` to first enter the docker container's bash shell:
 ```
 > alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
 > `cleos get info`
@@ -61,34 +79,9 @@ Create an alias for the 'cleos', so you only have to type 'get info' after 'cleo
 }
 ```
 
-How does `docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/ get info` work?
-```
-// 1st - enters the docker container. /bin/bash is executable for running docker bash shell, 
-// you enter the shell and have access to system
-> docker exec -it <containerId> /bin/bash
-> root@f043bb1b25b6:/# 
-```
-Now run `/opt/eosio/bin/cleos --url http://localhost:8888/ get info`
-```
-// executable for 'cleos' program, and url specifies where nodeos is running, where can connect to
-// get info is the command to run
-> root@f043bb1b25b6:/# /opt/eosio/bin/cleos --url http://localhost:8888/ get info
-```
+[You can also use 'curl' to access the EOS](/how-to/curl.md)
 
-Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](https://eosio.github.io/eos/group__eosiorpc.html)  
-```
-> curl http://127.0.0.1:8888/v1/chain/get_info
-{
-  "server_version": "f17c28c8",
-  "head_block_num": 3009,
-  "last_irreversible_block_num": 3008,
-  "head_block_id": "00000bc158f0dbc4eaaaf1a9c1ea2d45c843bb9592ff69648c00e9ed69ed1a4e",
-  "head_block_time": "2018-05-10T18:50:28",
-  "head_block_producer": "eosio"
-}
-```
-
-#### Step 4: Create a Wallet, Save the Password
+#### Step 2: Create a Wallet, Save the Password
 first check if have a wallet: unlock wallet:
 ```
 > cleos wallet unlock
