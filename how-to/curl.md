@@ -1,5 +1,7 @@
-Or you can do this using `curl` and the **HTTP RPC Interface** to EOS [docs](https://eosio.github.io/eos/group__eosiorpc.html)  
+You can also access the EOS using `curl` and the **HTTP RPC Interface** to EOS  
+[EOS RPC Docs](https://eosio.github.io/eos/group__eosiorpc.html)  
 ```
+// from your regular bash shell...
 > curl http://127.0.0.1:8888/v1/chain/get_info
 {
   "server_version": "f17c28c8",

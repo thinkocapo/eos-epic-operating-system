@@ -67,6 +67,7 @@ docker stop <containerId>
 #### Step 1: Cleos RPC Interface to EOS 
 Optional - Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos'. If you don't use alias, then do `docker exec -it <containerId> /bin/bash` to first enter the docker container's bash shell:
 ```
+> containerid=$(docker ps -a | grep eos | awk '{print $1}')
 > alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
 > `cleos get info`
 {
