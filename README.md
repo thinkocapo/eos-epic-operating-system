@@ -21,19 +21,27 @@ for workign with wallet, might need `--plugin eosio::wallet_api_plugin`
 Stop your container when done using it (e.g. when done coding for the day) so next time you can do:
 `docker start <containerId>`
 
+TODO:
+configure your `~/.zshrc` file and `./eos.sh`
+
 ### Start EOS Node - run each time
 #### Step 1: Start Container (Docker EOS)
-Applications > Docker > dbl-click
-
-Find and run the container you stopped last time
+1. MacOS > Applications > Docker > dbl-click, this starts Docker on your machine
+2. `eos` or `eos.sh` will start everything for you.
+3. If don't do step 2, then find and run the container you stopped last time
 ```
 docker ps -a | grep eos
 docker start <containerId> --attach
 ```
 or use `--detach` to run it in the background.
-
-To enter a docker container bash shell (/bin/bash), where you can access the filesystem and run commands:
+4. Enter a docker container bash shell (/bin/bash), where you can access the filesystem and run commands:
 `docker exec -it <containerId> /bin/bash`  
+5. When done developing for the day, don't forget to:
+```
+docker ps
+docker stop <containerId>
+```
+
 
 #### Step 3: cleos RPC Interface to EOS 
 Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos':
