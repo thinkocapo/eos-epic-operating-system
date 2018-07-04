@@ -1,5 +1,8 @@
 ## How to EOS Node
 ### Initial Setup - One time
+#### Step 0: Install tmux
+Do this step if you want to use the custom tmux dev env I've created, which is launched by the eos.sh shell script.
+[tmux](https://github.com/tmux/tmux)
 #### Step 1: Build Docker Image for EOS
 ```
 > git clone https://github.com/EOSIO/eos.git --recursive
