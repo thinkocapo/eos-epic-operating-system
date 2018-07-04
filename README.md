@@ -30,14 +30,27 @@ configure your `~/.zshrc` file and `./eos.sh`
 ### Start EOS Node in Docker Container and run a Bash Shell on it - run each time
 #### Step 1: Start Container (Docker EOS) and enter it to interact with EOS
 1. MacOS > Applications > Docker > dbl-click, this starts Docker on your machine
-2. `eos.sh` will start everything for you in tmux.
-3. If don't do step 2, then find and run the container you stopped last time
+2. `eos.sh` will start everything for you in tmux:
+```
+// EXPECTED OUTPUT...
+> eos-instructions git:(dev) alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888'
+>  eos-instructions git:(dev) cleos get info
+{
+  "server_version": "f17c28c8",
+  "head_block_num": 67392,
+  "last_irreversible_block_num": 67391,
+  "head_block_id": "000107404ae50c53a0f3ef53b0e84e06a48706cb1e28d5e49161d6606cde9687",
+  "head_block_time": "2018-07-04T16:46:17",
+  "head_block_producer": "eosio"
+}
+```
+3. Skip this is you got 'eos.sh' to work, or read this to learn what's going on:  
+Find and run the container you stopped last time
 ```
 docker ps -a | grep eos
 docker start <containerId> --attach
 // --detach to run in the background.
 ```
-
 4. Start a bash shell to the container, so you can interact with EOS in there.
 ```
 // 'docker exec -it <containerId>' enters the docker container and run /bin/bash which starts a bash shell, giving you access to the docker container and EOS
@@ -56,8 +69,7 @@ docker exec -it <containerId> /bin/bash
 }
 > root@f043bb1b25b6:/# exit
 ```  
-5. Now that you're in the Docker container, you can run the commands in Step 3, like `cleos get info`
-6. Stop the container when you're done for the day, or next you try to 'docker start' it will tell you 'already running':
+5. Stop the container when you're done for the day, or next you try to 'docker start' it will tell you 'already running':
 ```
 docker ps | grep eos
 docker stop <containerId>
@@ -65,11 +77,24 @@ docker stop <containerId>
 
 ### Interact with EOS via 'cleos'
 #### Step 1: Cleos RPC Interface to EOS 
-Optional - Create an alias for the 'cleos', so you only have to type 'get info' after 'cleos'. If you don't use alias, then do `docker exec -it <containerId> /bin/bash` to first enter the docker container's bash shell:
+1. If you got `eos.sh` to work, then this will work from your terminal:
 ```
-> containerid=$(docker ps -a | grep eos | awk '{print $1}')
-> alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
-> `cleos get info`
+cleos get info
+{
+  "server_version": "f17c28c8",
+  "head_block_num": 4816,
+  "last_irreversible_block_num": 4815,
+  "head_block_id": "000012d00ed845ff5e504cbcdf1063b2d99ad4586fe5aa9d2d35547dd6f002be",
+  "head_block_time": "2018-05-15T17:43:25",
+  "head_block_producer": "eosio"
+}
+
+```
+If `eos.sh` didn't work, then let's create an alias for `cleos` real quick:
+```
+containerid=$(docker ps -a | grep eos | awk '{print $1}')
+alias cleos='docker exec -it f043bb1b25b6 /opt/eosio/bin/cleos --url http://localhost:8888/'
+cleos get info
 {
   "server_version": "f17c28c8",
   "head_block_num": 4816,
@@ -85,18 +110,18 @@ Optional - Create an alias for the 'cleos', so you only have to type 'get info' 
 #### Step 2: Create a Wallet, Save the Password
 first check if have a wallet: unlock wallet:
 ```
-> cleos wallet unlock
+cleos wallet unlock
 password:
 password: Unlocked: default // success
 ```
 If so, Check if there are any accounts for the first Key you generated (during setup), using the publicaddress you saved during setup:
 ```
-> cleos get accounts <publicaddress>
+cleos get accounts <publicaddress>
 ```
 
 If you don't have a wallet, create one. Note this is not your Account(s) - THink of Wallet as the application that allows access to accounts. (access to EOS)
 ```
-> cleos create wallet
+cleos create wallet
 
 Creating wallet: default
 Save password to use in the future to unlock this wallet.
