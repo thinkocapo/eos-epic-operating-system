@@ -1,6 +1,7 @@
 # How to run a EOS Node 
 [EOS Terms & Definitions for this Tutorial](/docs/eos-tools-explained.md)  
 [Troubleshooting](/docs/troubleshooting.md)
+[Developers.eos.io](https://developers.eos.io/)
 ## Initial Setup - One time
 #### Step 0: Install tmux
 Do this step if you want to use `eos.sh`, which launches a custom tmux dev environment (saves time in the long run). I provide alternative commands if you want to skip this.
