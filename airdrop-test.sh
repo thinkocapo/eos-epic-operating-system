@@ -1,0 +1,19 @@
+set token contract....or a conditional that Checks if its set...
+Deploy a token
+* attempt to use specification provided...
+
+Check token is there...
+
+Snapshot?
+
+Iterate through current accounts in system...
+Transfer x token to each account....
+
+
+Can iterate through 'all' accounts in system, query for all?
+
+
+---------
+
+TESTNET...
+
