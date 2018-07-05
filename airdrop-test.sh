@@ -30,6 +30,7 @@ cleos get currency balance eosio.token tester EOS
 cleos get currency balance eosio.token user EOS
 
 # All Accounts - snapshot of accounts existing as of a specified historical block, as opposed to genesis block
+# official mainnet launch snapshot https://github.com/eoscafe/eos-snapshot-validation but no list of accounts, or details on how this was done?
 cleos get block <number>
 # get the accounts...
 # iterate through all accounts...
