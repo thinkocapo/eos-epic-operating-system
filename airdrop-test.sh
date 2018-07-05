@@ -14,10 +14,12 @@
 ######################################## CREATE TOKEN #############################################
 # SPECIFICATION
 
-cleos push action eosio.token create '[ "tokenname1", "1000000000.0000 TOKEN", 0, 0, 0]' -p eosio.token
+cleos push action eosio.token create '[ "your_token_name", "1000000000.0000 SYMBOL_HERE", 0, 0, 0]' -p eosio.token
 
 # CHECK THINGS...https://eosio-cleos.readme.io/reference#get
 cleos get transactions eosio.token # see that 'eosio.token create' is a recorded transaction
+cleos get currency stats eosio.token SYMBOL_HERE # ?
+cleos get actions eos.token # this exists in reference docs but doesn't work
 
 
 ########################################## AIRDROP ################################################
@@ -25,12 +27,15 @@ cleos get transactions eosio.token # see that 'eosio.token create' is a recorded
 cleos push action eosio.token issue '[ "user", "100.0000 EOS", "memo" ]' -p eosio
 # Team accounts - Check
 cleos get currency balance eosio.token tester EOS
+cleos get currency balance eosio.token user EOS
 
 # All Accounts - snapshot of accounts existing as of a specified historical block, as opposed to genesis block
+cleos get block <number>
 # get the accounts...
 # iterate through all accounts...
-cleos push action eosio.token issue '[ "user", "100.0000 EOS", "memo" ]' -p eosio
-cleos get currency balance eosio.token tester EOS
+cleos push action eosio.token issue '[ "user", "100.0000 SYMBOL_HERE", "memo" ]' -p eosio
+cleos get currency balance eosio.token tester SYMBOL_HERE
+cleos get currency balance eosio.token user SYMBOL_HERE
 
 
 ####################################################################################################
@@ -43,5 +48,7 @@ cleos get currency balance eosio.token tester EOS
 ####################################################################################################
 
 ########################################## NOTES ################################################
+# cleos get table eosio.token eosio accounts ?
+# dont use eosjs, its just a middle man to the cleos RPC
 # Transfer not needed, we're only Issuing...
-#cleos push action eosio.token transfer '[ "user", "tester", "25.0000 EOS", "m" ]' -p user
+# cleos push action eosio.token transfer '[ "user", "tester", "25.0000 EOS", "m" ]' -p user
