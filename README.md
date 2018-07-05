@@ -136,6 +136,12 @@ cleos get accounts <publicaddress>
 ```
 
 #### Step 3: Load a Contract (i.e. deploy a smart contract)
+Unlock default wallet:
+```
+cleos wallet unlock
+password:
+```
+
 **Let's do the BIOS contract, which you need in order to manage Accounts**  
 **Why?**  
 "Now that we have a wallet with the key for the eosio account loaded, we can set a default system contract. For the purposes of development, the default eosio.bios contract can be used. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. In a public blockchain, this contract will manage the staking and unstaking of tokens to reserve bandwidth for CPU and network activity, and memory for contracts."
