@@ -49,6 +49,7 @@ cleos get currency balance eosio.token user SYMBOL_HERE
 ####################################################################################################
 
 ########################################## NOTES ################################################
+# --stake-net --stake-cpu --stake-ram https://github.com/EOSEssentials/EOSDrops/blob/master/shell_scripts/test_token.sh ?
 # cleos get table eosio.token eosio accounts ?
 # dont use eosjs, its just a middle man to the cleos RPC
 # Transfer not needed, we're only Issuing...
