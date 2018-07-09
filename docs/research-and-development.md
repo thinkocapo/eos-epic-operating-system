@@ -22,16 +22,14 @@
 `airdrop-test.sh`
 
 ## To-DO
-1. View Balances of a EOS Address on Main Net
-
 #### Running a Airdrop on Private net
 1. Comprehend every line of code in the sample scripts.
 2. Understand EOS Ram, Memory, Bandwith, Stak'ing.
 3. Stay up to date on the issue with EOS RAM costing too mcuh right now, see reddit r/eos r/eosdev
 
 #### Where to Run a EOS Node? Where to Run Airdrop on a EOS Node?
-2. Running a airdrop is thousands of scripted RPC calls to the EOS node, so connect to our own Docker EOS self-hosted, or are Saas EOS Nodes okay with this? Perhaps they aren't cool with such high traffic.
-3. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet, Arrowhead, Trinity test nets
+1. Running a airdrop is thousands of scripted RPC calls to the EOS node, so connect to our own Docker EOS self-hosted, or are Saas EOS Nodes okay with this? Perhaps they aren't cool with such high traffic.
+2. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet, Arrowhead, Trinity test nets
 
 #### Snapshot
 1. Snapshot is based on a set of blocks in the EOS blockchain, so maybe I can iterate through the transactions lists (or state trees) in every block and compose a list of all addresses used (and then confirm which ones have balance). It would be a map-reduce job. This way we could define our own range of blocks (i.e. snapshot since MM/DD/YYYY that we define).
