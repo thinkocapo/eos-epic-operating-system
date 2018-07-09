@@ -1,6 +1,5 @@
-## Research-and-development
-
-### DONE as of 07/09/2018
+## DONE as of 07/09/2018
+#### General...
 1. Confirmed there is no official EOS Aidrop documentation. Just use the EOS API. Shell-script or javascript
 2. Decided its better to run a shell-script as javascript is a middle man to the node. Some of the sample code I found is shell-script, some is javascript.
 
@@ -22,7 +21,7 @@
 #### Airdrop script
 `airdrop-test.sh`
 
-### To-DO
+## To-DO
 1. View Balances of a EOS Address on Main Net
 
 #### Running a Airdrop on Private net
