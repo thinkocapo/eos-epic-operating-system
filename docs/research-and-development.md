@@ -21,7 +21,7 @@
 #### Airdrop script
 `airdrop-test.sh`
 
-## To-DO
+## To-Do
 #### Where to Run a EOS Node? Where to Run Airdrop on a EOS Node?
 1. Running a airdrop is thousands of scripted RPC calls to the EOS node, so connect to our own Docker EOS self-hosted, or are Saas EOS Nodes okay with this? Perhaps they aren't cool with such high traffic.
 2. Run on the eos test net EOS Dawn v4.0.0 Jungle Testnet, Arrowhead, Trinity test nets
