@@ -1,0 +1,21 @@
+https://github.com/EOSIO/eos/issues/4105#issuecomment-400929571
+cleos
+eosiocpp
+
+
+CURRENTLY IN USE...
+'alias cleos='"'"'docker exec -it '$containerid' /opt/eosio/bin/cleos --url http://localhost:8888'"'"
+
+
+
+HOW TO SET AN ALIAS TO A FILE?
+'alias contracts='"'"'docker exec -it '$containerid' /contracts'"'"
+contracts=????
+
+apachelog=/var/log/apache2/error_log
+tail -50 $apachelog
+
+
+
+FROM INSIDE DOKCER CONTAINER SHELL
+alias cleos = /opt/eosio/bin/cleos --url http://localhost:8888 ???

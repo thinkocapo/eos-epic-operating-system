@@ -4,4 +4,5 @@ https://eosio.stackexchange.com/
 
 https://github.com/EOSIO/eos/wiki
 
-https://github.com/EOSEssentials built by author(s) of how-to-airdrop articles in /docs/airdrop.md
+https://github.com/EOSEssentials Built by author(s) of how-to-airdrop articles in /docs/airdrop.md
+https://github.com/eoscafe Official Genesis Snapshot
