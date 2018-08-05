@@ -33,3 +33,33 @@
 1. Snapshot is based on a set of blocks in the EOS blockchain, so maybe I can iterate through the transactions lists (or state trees) in every block and compose a list of all addresses used (and then confirm which ones have balance). It would be a map-reduce job. This way we could define our own range of blocks (i.e. snapshot since MM/DD/YYYY that we define).
 2. "X% of the tokens will be allocated to the team" is the team represented by 1 address or will there be multiple (i.e. split)?
 
+
+#### Aug 5th
+Snapshot service
+https://medium.com/eos-new-york/snapshots-as-a-service-airdrops-for-all-2bd51548b1ac
+
+Larimer on EOSIO RAM Market & Bancor Algorithm
+https://medium.com/@bytemaster/eosio-ram-market-bancor-algorithm-b8e8d4e20c73
+RAM is required to store account information such as keys, balances, and contract state
+Q. So this data not in the blockchain?
+
+
+the eosio system contract allows users to buy RAM from the system and sell RAM back to the system in exchange for the blockchains native tokens (e.g EOS)
+
+ The algorithm used for this market maker is known as a Bancor Relay.
+A Bancor Relay does not set the price of RAM. It only offers to buy and sell at previously established market rates. Anytime the current market rate is different than the current price offered by the Bancor Relay traders will buy or sell RAM pushing to closer to the market determined price.
+
+While RAM can be bought and sold, it cannot be transferred from user to user. 
+ The supply of RAM is managed by voters for the benefit of developers and users which need cheap RAM to build applications. 
+ As a holder of RAM the only thing you are entitled to by the blockchain is storing data in contracts. 
+
+
+
+Due to an unintentional configuration of the Bancor Relay weights on the EOS blockchain, this parameter is set at .05% rather than 50%. This introduces some heavy slippage for buying and selling large quantities and causes more volatility than desired.
+...
+As the free market pushes the Relay back to market value pricing of RAM users will experience far less slippage when buying and selling in large quantities. Reducing slippage and volatility provides a more predictable and stable market for both RAM speculators and RAM users.
+
+July 4th, 2018
+ So much so that deploying a typical smart contract (which uses 10MB of RAM) costs about $40,000 at today’s RAM prices
+
+ 
