@@ -59,7 +59,74 @@ Due to an unintentional configuration of the Bancor Relay weights on the EOS blo
 ...
 As the free market pushes the Relay back to market value pricing of RAM users will experience far less slippage when buying and selling in large quantities. Reducing slippage and volatility provides a more predictable and stable market for both RAM speculators and RAM users.
 
+
+Dapp developers face two costs when building their system.
+
+The cost of interacting with the blockchain
+The cost of hosting a full node
+
+
 July 4th, 2018
  So much so that deploying a typical smart contract (which uses 10MB of RAM) costs about $40,000 at today’s RAM prices
 
- 
+ interesting...
+ It should be possible for non-producing full nodes to rely on virtual memory to reduce costs. The vast majority of CPU capacity of the network is under-utilized so there is opportunity to trade CPU time for RAM.
+
+ "
+ The combination of compression, disk-paging, and modern ultra-low-latency disks means that a blockchain community can made a tradeoff between maximum TPS and RAM. After all it doesn’t help anyone if they can do 1 billion TPS if they are limited to the 8MB of L3 cache. There is a market trade-off that all blockchains must make between memory usage, throughput, cost of a full node, and demand for scarce resources.
+ "
+
+ https://github.com/EOSIO/eosio.contracts/issues/3
+
+
+https://www.youtube.com/watch?v=0dw_BxoDpTQ
+ EOS high performance blockchain, so runs its DB inside RAM. maybe this faster than how ethereum does it (blcockahin state as db)
+ "buying selling it from the system contract". same amounts back and forth
+ 'realized not much incentive to relinquish your stakes (sell back the RAM)'...so decided to use an algorithm - the Bancor Protocool
+'the more ram that's sold, and the closer you get to the total amoutn available on the network...the more expensive it will get'
+'so this could amke incentive for people to sell it back, bc it will be worth more'
+55GB RAM has been purchsed but only a few GB's being used
+
+Q. How to deploy smart contract using RAM? ***
+
+https://www.youtube.com/watch?v=Rs8EmyxDRXU
+RAM priced 10xd
+Developers AND BP's have been buying RAM...
+To know if Block Producers have been involved in speculating on RAM
+BP's have decision-making powers to increase RAM supply * 
+which would lower the price
+"BP should make their decision open, to incrase RAM supply, or else they could be fronting the market"
+"they could sell tehir RAM before increasing it, then buy it back" market manipulation
+2 ways the BPs could inform everyone...
+1. Inform the market publicly, like Federal Reserve
+2. complete transparency 'why x meets, y' then trigger the update. watch graph or set of figures
+currently there's no process *
+
+Tax on sale of RAM was an idea - capital gains tax. if you buy and sell for more $ then you pay tax on that gain
+
+"$15,000-$20,000 to do an airdrop"
+
+
+
+https://www.youtube.com/watch?v=KVO-scsq9vo
+how to buy/sell ram
+
+
+
+
+https://github.com/EOSIO/eos/issues/4497
+some RAM cost calculations...
+
+
+
+Do I get RAM back after deploying a contract? https://eosio.stackexchange.com/questions/1483/do-i-get-ram-back-after-deploying-a-contract/1484#1484
+
+Buying RAM as part of EOS Smartcontract tutorial https://hackernoon.com/how-to-create-and-deploy-your-own-eos-token-1f4c9cc0eca1
+
+*review previous aridrop scripts see if/how they mentioned RAM
+
+
+Larmier July 12, 2018
+https://medium.com/@bytemaster/a-three-step-plan-for-lowering-eos-account-creation-costs-c3bf1ec736b7
+
+
