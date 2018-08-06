@@ -126,7 +126,4 @@ Buying RAM as part of EOS Smartcontract tutorial https://hackernoon.com/how-to-c
 *review previous aridrop scripts see if/how they mentioned RAM
 
 
-Larmier July 12, 2018
-https://medium.com/@bytemaster/a-three-step-plan-for-lowering-eos-account-creation-costs-c3bf1ec736b7
-
 
