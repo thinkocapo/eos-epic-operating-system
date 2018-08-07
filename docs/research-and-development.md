@@ -38,6 +38,8 @@ overall, price has dropped significantly from 1 month ago, if you look at any gr
 2. Use [cleos system](https://developers.eos.io/eosio-cleos/v1.1.0/reference#cleos-system-regproxy) to stake eos for CPU, Bandwidth and reserve RAM, TRY IT on testnet - Need use EOS to get all 3? split between the 3? docs on how 'cleos system' works 
 3. Perform airdrop on the eos test nets for EOS Dawn v4.0.0: Jungle Testnet, Arrowhead, Trinity test nets
 4. Try staking and reserving on main net using my own personal EOS
+5. Prove via [EOS NY Calculator](https://www.eosrp.io/#calc) what it will cost
+
 #### Snapshot
 1. ~~Snapshot is based on a set of blocks in the EOS blockchain, so maybe I can iterate through the transactions lists (or state trees) in every block and compose a list of all addresses used (and then confirm which ones have balance). It would be a map-reduce job. This way we could define our own range of blocks (i.e. snapshot since MM/DD/YYYY that we define).~~
 2. [Snapshots As A Service: Airdrops for All www.EOSSnapshots.io](https://medium.com/eos-new-york/snapshots-as-a-service-airdrops-for-all-2bd51548b1ac)
