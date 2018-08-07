@@ -45,6 +45,15 @@ overall, price has dropped significantly from 1 month ago, if you look at any gr
 2. [Snapshots As A Service: Airdrops for All www.EOSSnapshots.io](https://medium.com/eos-new-york/snapshots-as-a-service-airdrops-for-all-2bd51548b1ac)  
 https://www.eossnapshots.io/?prefix=data/2018-07/
 https://www.eossnapshots.io/faq/
+"At the time of writing (July 29, 2018) our tool exports 273,634 accounts."
+"exclude system accounts"
+chain_plugin, reads from table multi-index containers...in c++. so difficult to do yourself
+
+"Traversing each block and analyzing txs is slow. – Ayushya Apr 15 at 0:09
+@Ayushya, I am not talking about reprocessing the whole blockchain from genesis block, you can get the last state with a single call and print it to file "
+https://ethereum.stackexchange.com/questions/45644/list-all-ethereum-accounts-using-geth
+
+eosio API https://developers.eos.io/eosio-cpp/reference#get
 3. "X% of the tokens will be allocated to the team" is the team represented by 1 address or will there be multiple (i.e. split)?
 
 
