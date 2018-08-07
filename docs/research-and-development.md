@@ -42,7 +42,9 @@ overall, price has dropped significantly from 1 month ago, if you look at any gr
 
 #### Snapshot
 1. ~~Snapshot is based on a set of blocks in the EOS blockchain, so maybe I can iterate through the transactions lists (or state trees) in every block and compose a list of all addresses used (and then confirm which ones have balance). It would be a map-reduce job. This way we could define our own range of blocks (i.e. snapshot since MM/DD/YYYY that we define).~~
-2. [Snapshots As A Service: Airdrops for All www.EOSSnapshots.io](https://medium.com/eos-new-york/snapshots-as-a-service-airdrops-for-all-2bd51548b1ac)
+2. [Snapshots As A Service: Airdrops for All www.EOSSnapshots.io](https://medium.com/eos-new-york/snapshots-as-a-service-airdrops-for-all-2bd51548b1ac)  
+https://www.eossnapshots.io/?prefix=data/2018-07/
+https://www.eossnapshots.io/faq/
 3. "X% of the tokens will be allocated to the team" is the team represented by 1 address or will there be multiple (i.e. split)?
 
 
