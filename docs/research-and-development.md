@@ -3,11 +3,13 @@
 1. Confirmed there is no official EOS Aidrop documentation. Just use the EOS API. Shell-script or javascript
 2. Decided its better to run a shell-script as javascript is a middle man to the node. Some of the sample code I found is shell-script, some is javascript.
 
-#### Running a Airdrop on Private net
+#### Private Net Airdrop
 1. Got a local node up and running, Wallet,Keys,Accounts, System BIOS Contract, deployed successfully, created a new Token, persisted.
 2. Ran the airdrop (I did not include my full script in the repo yet).
 3. Worked off of sample scripts that were used on a testnet, it was easy to comprehend. I read through the sample scripts used on PROD that give higher consideration to EOS Ram, Memory, Bandwith etc. I only found 3 such scripts, and only 2 were PROD usable. All are 'use at your own risk'.
 4. Identified EOS RAM cost issue on Main net, see reddit r/eos r/eosdev they say its too expensive ($200,000 USD worth of EOS) to run a full airdrop.
+Aug10
+5. ~~Running a airdrop is thousands of scripted RPC calls to the EOS node, so connect to our own Docker EOS self-hosted, or are Saas EOS Nodes okay with this? Perhaps they aren't cool with such high traffic.~~ as long as your have the system resources to pay for it, and test on testnet first
 
 #### Where to Run a EOS Node? Where to Run Airdrop on a EOS Node?
 1. No need to run a Docker EOS Container self-hosted in AWS that runs 24/7...
@@ -43,8 +45,6 @@ I found 3 such examples
 overall, price has dropped significantly from 1 month ago, if you look at any graphs of the EOS RAM price
 
 ## To-Do
-#### Where to Run a EOS Node? Where to Run Airdrop on a EOS Node?
-1. ~~Running a airdrop is thousands of scripted RPC calls to the EOS node, so connect to our own Docker EOS self-hosted, or are Saas EOS Nodes okay with this? Perhaps they aren't cool with such high traffic.~~ as long as your have the system resources to pay for it, and test on testnet first
 #### General
 1. Comprehend every line of code in the sample scripts. ~~Comprehend what CPU, Bandwith, RAM are for~~
 2. Use [cleos system](https://developers.eos.io/eosio-cleos/v1.1.0/reference#cleos-system-regproxy) to stake eos for CPU, Bandwidth and reserve RAM, TRY IT on testnet - Need use EOS to get all 3? split between the 3? docs on how 'cleos system' works 
