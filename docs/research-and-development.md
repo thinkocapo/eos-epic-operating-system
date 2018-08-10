@@ -49,6 +49,8 @@ https://www.eossnapshots.io/faq/
 "exclude system accounts"
 chain_plugin, reads from table multi-index containers...in c++. so difficult to do yourself
 
+
+#### interesting technical notes
 "Traversing each block and analyzing txs is slow. – Ayushya Apr 15 at 0:09
 @Ayushya, I am not talking about reprocessing the whole blockchain from genesis block, you can get the last state with a single call and print it to file "
 https://ethereum.stackexchange.com/questions/45644/list-all-ethereum-accounts-using-geth
