@@ -36,7 +36,7 @@ I found 3 such examples
 - the `auth` argument for the `.issue` method is not required, but with `cleos` you specify it using the `-p` flag. The `auth` arg uses `issuer` as a value but that's not in the `config`. Should open an Issue on the GIthub and inquire if the account name or address goes here? And/or try running it without `auth` arg and value.
 3. [https://github.com/eosdac/DACtools/tree/master/drop%20tool](https://github.com/eosdac/DACtools/tree/master/drop%20tool)
 - Does not estimate resource requirement, as its running.
-- keeps re-trying `self.drop()` if there's an error with one of the tx's. Is this a good practice? What if you get through a handful of accounts and it errors, then its going to re-drop all of them all over again? I msg'd the developer.
+- researched and spoke with developer to confirm `self.drop()` is okay when a tx fails. it won't re-start a drop for all accounts. updates saved to DB
 
 #### Price of RAM as of Aug10th
 Aug10th
